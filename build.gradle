@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+        // junit
+        junitVersion = "5.9.0"
+        // spring
+        springBootVersion = "2.7.4"
+        springDependencyManagement = "1.0.11.RELEASE"
+        // lombok
+        lombokVersion = "1.18.24"
+    }
+}
+
+plugins {
+    id "org.springframework.boot" version "$springBootVersion"
+    id 'io.spring.dependency-management' version "$springDependencyManagement"
+    id "java"
+}
+
+group 'com.sunnymix'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // test
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    // spring
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    // lombok
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    orgmain {
+        java.srcDirs files('src/main/java', 'gensrc/main/java')
+    }
+}
